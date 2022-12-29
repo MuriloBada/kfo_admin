@@ -118,6 +118,50 @@ RegisterCommand('tp', function(source, args)
     end)
 end)
 
+RegisterCommand('wl', function(source, args)
+    local _source = source
+    TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+        if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
+            if args[1] then
+                local result = MySQL.Sync.fetchAll('SELECT * FROM users where identifier = @identifier', {identifier = args[1]})
+
+                if result[1] then
+                    MySQL.Sync.execute('UPDATE users set whitelisted = 1 where identifier = @identifier', {identifier = args[1]})
+                    TriggerClientEvent('redem_roleplay:Tip', _source, "Whitelist concedida ao "..args[1], 7000)
+                else
+                    TriggerClientEvent('redem_roleplay:Tip', _source, "Essa steam hex não existe no banco de dados.", 7000)
+                end
+            else
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /wl [Steam Hex].", 7000)
+            end
+        else
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end)
+end)
+
+RegisterCommand('unwl', function(source, args)
+    local _source = source
+    TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+        if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
+            if args[1] then
+                local result = MySQL.Sync.fetchAll('SELECT * FROM users where identifier = @identifier', {identifier = args[1]})
+
+                if result[1] then
+                    MySQL.Sync.execute('UPDATE users set whitelisted = 0 where identifier = @identifier', {identifier = args[1]})
+                    TriggerClientEvent('redem_roleplay:Tip', _source, "Whitelist removida do "..args[1], 7000)
+                else
+                    TriggerClientEvent('redem_roleplay:Tip', _source, "Essa steam hex não existe no banco de dados.", 7000)
+                end
+            else
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /unwl [Steam Hex].", 7000)
+            end
+        else
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end)
+end)
+
 RegisterNetEvent('kfo_adminS:tp')
 AddEventHandler('kfo_adminS:tp', function(playerPed)
     print(source)
