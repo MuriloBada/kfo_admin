@@ -20,6 +20,25 @@ RegisterCommand('nc', function(source, args, rawCommand)
     end)
 end)
 
+RegisterCommand('setped', function(source, args, rawCommand)
+    local _source = source
+    TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+        if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
+            if args[1] and args[2] and args[3] then
+                local skins = MySQL.Sync.fetchAll('SELECT * FROM SKINS WHERE identifier = @identifier and charid = @charid', {identifier = args[1], charid = tonumber(args[2])})
+                local temp = json.decode(skins[1].skin)
+                temp.model = args[3]
+                MySQL.Sync.execute('UPDATE skins set skin = @fSkin WHERE identifier = @identifier and charid = @charid', {fSkin = json.encode(temp), identifier = args[1], charid = tonumber(args[2])})
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Setado com sucesso ped "..args[3]..' para '..args[1]..' [ '..args[2]..' ]', 7000)
+            else
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /setped [steam hex] [charid] [modelo de ped].", 7000)
+            end
+        else
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end)
+end)
+
 RegisterCommand('status+', function(source, args, rawCommand)
     local _source = source
     TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
