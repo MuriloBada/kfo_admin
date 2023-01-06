@@ -39,6 +39,10 @@ RegisterCommand('setped', function(source, args, rawCommand)
     end)
 end)
 
+RegisterCommand('outfit', function(source, args)
+    TriggerClientEvent('kfo_admin:outfitPreset', source, args[1])
+end)
+
 RegisterCommand('status+', function(source, args, rawCommand)
     local _source = source
     TriggerEvent('redemrp:getPlayerFromId', _source, function(user)

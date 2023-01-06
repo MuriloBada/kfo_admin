@@ -47,6 +47,11 @@ AddEventHandler("kfo_admin:tp",function(playerID)
     end
 end)
 
+RegisterNetEvent('kfo_admin:outfitPreset')
+AddEventHandler('kfo_admin:outfitPreset', function(outfit)
+    SetPedOutfitPreset(PlayerPedId(), tonumber(outfit))
+end)
+
 RegisterNetEvent('kfo_admin:status')
 AddEventHandler('kfo_admin:status', function(operator)
     if operator == '+' then
