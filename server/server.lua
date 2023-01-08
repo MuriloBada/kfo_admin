@@ -46,7 +46,7 @@ RegisterCommand('removeped', function(source, args, rawCommand)
             if args[1] and args[2] then
                 local skins = MySQL.Sync.fetchAll('SELECT * FROM SKINS WHERE identifier = @identifier and charid = @charid', {identifier = args[1], charid = tonumber(args[2])})
                 local temp = json.decode(skins[1].skin)
-                temp.model = ""
+                temp.model = nil
                 MySQL.Sync.execute('UPDATE skins set skin = @fSkin WHERE identifier = @identifier and charid = @charid', {fSkin = json.encode(temp), identifier = args[1], charid = tonumber(args[2])})
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Ped removido da hex "..args[1]..' [ '..args[2]..' ]', 7000)
             else
