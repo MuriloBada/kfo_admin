@@ -215,3 +215,39 @@ function GetPlayerEntity()
     end
     return playerEntity
 end
+
+RegisterCommand('ped', function(source, args)
+    local modelHash = GetHashKey(args[1])
+
+    if IsModelValid(modelHash) then
+        if not HasModelLoaded(modelHash) then
+            RequestModel(modelHash)
+            while not HasModelLoaded(modelHash) do
+                Citizen.Wait(0)
+            end
+        end
+    end
+
+    local oldHealth = GetEntityHealth(PlayerPedId())
+
+    SetPlayerModel(PlayerId(), modelHash, true)
+
+    while not Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, PlayerPedId()) do
+        Wait(0)
+    end
+
+    -- NativeSetRandomOutfitVariation(PlayerPedId())
+
+    SetEntityHealth(PlayerPedId(), oldHealth)
+
+    -- while not NativeHasPedComponentLoaded(ped) do
+    --     Wait(10)
+    -- end
+
+    SetModelAsNoLongerNeeded(args[1])
+
+    Citizen.Wait(200)
+    if args[2] ~= nil then
+        SetPedOutfitPreset(PlayerPedId(), tonumber(args[2]))
+    end
+end)
