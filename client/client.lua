@@ -16,8 +16,9 @@ AddEventHandler("kfo_admin:spawnped",function(pedModel, outfit)
             Citizen.Wait(10)
         end
     end
-
-    local ped = CreatePed(pedModelHash, GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), 1, 0)
+    local x,y,z = table.unpack(GetEntityCoords(PlayerPedId()))
+    x = x + (GetEntityForwardX(PlayerPedId()) * 2.0)
+    local ped = CreatePed(pedModelHash, x,y,z, GetEntityHeading(PlayerPedId()), 1, 0)
     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
     Citizen.InvokeNative(0x58A850EAEE20FAA3, ped)
 
