@@ -284,6 +284,10 @@ Citizen.CreateThread(function ()
         {name = "Veículo", help = "Modelo do veículo (cuidado pra não spawnar trens.)"},
     })
 
+    TriggerEvent('chat:addSuggestion','/ped', 'Se transforma em um Ped', {
+        {name = "Ped", help = "Modelo do ped"},
+    })
+
     TriggerEvent('chat:addSuggestion','/spawnped', 'Spawna um ped', {
         {name = "Ped", help = "Modelo do ped"},
     })

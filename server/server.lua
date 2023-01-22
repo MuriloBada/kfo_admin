@@ -9,6 +9,7 @@ RegisterCommand('nc', function(source, args, rawCommand)
         if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
             TriggerClientEvent('kfo_admin:nc', _source)
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/nc')
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -29,6 +30,7 @@ RegisterCommand('setped', function(source, args, rawCommand)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /setped [steam hex] [charid] [modelo de ped].", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/setped', args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -49,6 +51,7 @@ RegisterCommand('removeped', function(source, args, rawCommand)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /removeped [steam hex] [charid]", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/removeped',args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -81,6 +84,7 @@ RegisterCommand('status+', function(source, args, rawCommand)
         if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
             TriggerClientEvent('kfo_admin:status', _source, '+')
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/status+')
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -92,6 +96,7 @@ RegisterCommand('status-', function(source, args, rawCommand)
         if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
             TriggerClientEvent('kfo_admin:status', _source, '-')
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/status-')
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -103,6 +108,7 @@ RegisterCommand('tpwayp', function(source, args, rawCommand)
         if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
             TriggerClientEvent('kfo_admin:tpwayp', _source)
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/tpwayp')
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -118,6 +124,7 @@ RegisterCommand('veh', function(source, args, rawCommand)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Use /veh [nome do veículo]", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/veh',args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -133,6 +140,7 @@ RegisterCommand('spawnped', function(source, args, rawCommand)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Use /spawnped [ped] [*Outfit]", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/spawnped',args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -153,6 +161,7 @@ RegisterCommand('charusuario', function(source, args)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /charusuario [hex]", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/charusuario',args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)
@@ -168,6 +177,7 @@ RegisterCommand('tp', function(source, args)
                 TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /tp [id].", 7000)
             end
         else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/tp',args)
             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
         end
     end)

@@ -8,8 +8,10 @@ client_scripts {
     'client/client.lua',
 }
 
-
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
+    '@kfo_logSender/server/sv_main.lua',
+    '@kfo_logSender/Config.lua',
+    '@kfo_permissions/server/server.lua',
     'server/server.lua',
 }
