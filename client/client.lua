@@ -34,6 +34,8 @@ AddEventHandler("kfo_admin:spawnped",function(pedModel, outfit)
     end
 end)
 
+
+
 RegisterNetEvent("kfo_admin:tp")
 AddEventHandler("kfo_admin:tp",function(playerID)
     local charid, identifier = exports.kfo_permissions.getPlayerVariables(playerID)
@@ -251,4 +253,46 @@ RegisterCommand('ped', function(source, args)
     if args[2] ~= nil then
         SetPedOutfitPreset(PlayerPedId(), tonumber(args[2]))
     end
+end)
+
+Citizen.CreateThread(function ()
+    Wait(1000)
+    TriggerEvent('chat:addSuggestion','/dv', 'Deleta a entidade mais próxima (cuidado ao usar)', {})
+
+    TriggerEvent('chat:addSuggestion','/setped', 'Seta um ped em alguém.', {
+        {name = "SteamHex", help = "Steam hex da pessoa"},
+        {name = "CharID", help = "CharID do personagem (usar /charusuario)"},
+        {name = "Ped", help = "Modelo do Ped a ser setado"},
+    })
+    
+    TriggerEvent('chat:addSuggestion','/removeped', 'Remove o ped de alguém.', {
+        {name = "SteamHex", help = "Steam hex da pessoa"},
+        {name = "CharID", help = "CharID do personagem (usar /charusuario)"},
+    })
+
+    TriggerEvent('chat:addSuggestion','/outfit', 'Troca a Outfit do ped', {
+        {name = "Número", help = "Número do outfit desejado."},
+    })
+    
+    TriggerEvent('chat:addSuggestion','/status+', 'Enche fome e sede', {})
+    
+    TriggerEvent('chat:addSuggestion','/status-', 'Esvazia fome e sede', {})
+    
+    TriggerEvent('chat:addSuggestion','/tpwayp', 'Teleporta para o local marcado em seu mapa', {})
+
+    TriggerEvent('chat:addSuggestion','/veh', 'Spawna um veículo', {
+        {name = "Veículo", help = "Modelo do veículo (cuidado pra não spawnar trens.)"},
+    })
+
+    TriggerEvent('chat:addSuggestion','/spawnped', 'Spawna um ped', {
+        {name = "Ped", help = "Modelo do ped"},
+    })
+
+    TriggerEvent('chat:addSuggestion','/charusuario', 'Mostra os charID de uma Hex', {
+        {name = "SteamHex", help = "Steam hex da pessoa"},
+    })
+
+    TriggerEvent('chat:addSuggestion','/tp', 'Teleporta até alguém', {
+        {name = "ID", help = "ID da pessoa"},
+    })
 end)
