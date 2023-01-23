@@ -293,9 +293,7 @@ Citizen.CreateThread(function ()
         {name = "Número", help = "Número do outfit desejado."},
     })
 
-    TriggerEvent('chat:addSuggestion','/god', 'Torna uma entidade invencível', {
-        {name = "ID", help = "ID da pessoa, não é obrigatorio."},
-    })
+    TriggerEvent('chat:addSuggestion','/god', 'Torna uma entidade invencível', {})
     
     TriggerEvent('chat:addSuggestion','/status+', 'Enche fome e sede', {})
     
