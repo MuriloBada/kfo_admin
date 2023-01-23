@@ -16,6 +16,42 @@ RegisterCommand('nc', function(source, args, rawCommand)
     end)
 end)
 
+RegisterCommand('ped', function(source, args, rawCommand)
+    local _source = source
+    TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+        if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
+            if args[1] then
+                TriggerClientEvent('kfo_admin:ped', _source, args)
+                sendLogComandoAdminUsado(user.getIdentifier(), user.getSessionVar('charid'), '/ped', args)
+            else
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Você deve usar /ped [modelo de ped].", 7000)
+            end
+        else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/ped', args)
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end)
+end)
+
+RegisterCommand('god', function(source, args, rawCommand)
+    local _source = source
+    TriggerEvent('redemrp:getPlayerFromId', _source, function(user)
+        if exports.kfo_permissions.checkPlayerJob(_source, 'Admin', user.getIdentifier(), user.getSessionVar('charid')) then
+            if not args[1] then
+                TriggerClientEvent('kfo_admin:god', _source)
+                sendLogComandoAdminUsado(user.getIdentifier(), user.getSessionVar('charid'), '/god', args)
+
+            else
+                TriggerClientEvent('redem_roleplay:Tip', _source, "Este comando não suporta god em outros players.", 7000)
+            end
+        else
+            sendLogComandoAdminTentado(user.getIdentifier(), user.getSessionVar('charid'), '/god', args)
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end)
+end)
+    
+
 RegisterCommand('setped', function(source, args, rawCommand)
     local _source = source
     TriggerEvent('redemrp:getPlayerFromId', _source, function(user)

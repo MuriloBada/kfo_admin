@@ -219,7 +219,34 @@ function GetPlayerEntity()
     return playerEntity
 end
 
-RegisterCommand('ped', function(source, args)
+local god = false
+RegisterNetEvent('kfo_admin:god')
+AddEventHandler('kfo_admin:god', function()
+    god = not god
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 0, 100)
+
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 1, 100)
+
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 2, 100)
+    if god then
+        TriggerEvent('redem_roleplay:Tip', "God Ativado", 7000)
+        Citizen.InvokeNative(0x4AF5A4C7B9157D14, PlayerPedId(), 0, 1000, true)
+        Citizen.InvokeNative(0xF6A7C08DF2E28B28, PlayerPedId(), 0, 1000, true)
+
+        Citizen.InvokeNative(0x4AF5A4C7B9157D14, PlayerPedId(), 1, 1000, true)
+        Citizen.InvokeNative(0xF6A7C08DF2E28B28, PlayerPedId(), 1, 1000, true)
+
+        Citizen.InvokeNative(0x4AF5A4C7B9157D14, PlayerPedId(), 2, 1000, true)
+        Citizen.InvokeNative(0xF6A7C08DF2E28B28, PlayerPedId(), 2, 1000, true)
+    else
+        TriggerEvent('redem_roleplay:Tip', "God Desativado", 7000)
+    end
+    SetPlayerInvincible(GetPlayerIndex(), god)
+end)
+
+
+RegisterNetEvent('kfo_admin:ped')
+AddEventHandler('kfo_admin:ped', function(args)
     local modelHash = GetHashKey(args[1])
 
     if IsModelValid(modelHash) then
@@ -238,15 +265,7 @@ RegisterCommand('ped', function(source, args)
     while not Citizen.InvokeNative(0xA0BC8FAED8CFEB3C, PlayerPedId()) do
         Wait(0)
     end
-
-    -- NativeSetRandomOutfitVariation(PlayerPedId())
-
     SetEntityHealth(PlayerPedId(), oldHealth)
-
-    -- while not NativeHasPedComponentLoaded(ped) do
-    --     Wait(10)
-    -- end
-
     SetModelAsNoLongerNeeded(args[1])
 
     Citizen.Wait(200)
@@ -272,6 +291,10 @@ Citizen.CreateThread(function ()
 
     TriggerEvent('chat:addSuggestion','/outfit', 'Troca a Outfit do ped', {
         {name = "Número", help = "Número do outfit desejado."},
+    })
+
+    TriggerEvent('chat:addSuggestion','/god', 'Torna uma entidade invencível', {
+        {name = "ID", help = "ID da pessoa, não é obrigatorio."},
     })
     
     TriggerEvent('chat:addSuggestion','/status+', 'Enche fome e sede', {})
