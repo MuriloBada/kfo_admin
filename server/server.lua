@@ -204,6 +204,24 @@ RegisterCommand('spawnped', function(source, args, rawCommand)
         end
     end
 end)
+    
+RegisterCommand('cavalo', function(source, args, rawCommand)
+    local _source = source
+    local Player = RedEM.GetPlayer(_source)
+    if Player then
+        if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
+            if args[1] then
+                TriggerClientEvent('kfo_admin:spawnped', Player.source, 'A_C_HORSE_MUSTANG_BLACKOVERO', args[2] or nil)
+                sendLogComandoAdminUsado(Player.identifier, Player.charid, '/cavalo', args)
+            else
+                TriggerClientEvent('redem_roleplay:Tip', Player.source, "Use /cavalo [ped] [*Outfit]", 7000)
+            end
+        else
+            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/cavalo',args)
+            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end
+end)
 
 RegisterCommand('charusuario', function(source, args)
     local _source = source
