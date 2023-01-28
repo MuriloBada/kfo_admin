@@ -126,32 +126,33 @@ RegisterCommand('outfit', function(source, args)
     end
 end)
 
--- RegisterCommand('status+', function(source, args, rawCommand)
---     local _source = source
---     local Player = RedEM.GetPlayer(_source)
---     if Player then
---         if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
---             TriggerClientEvent('kfo_admin:status', Player.source, '+')
---             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status+', args)
---         else
---             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status+')
---             TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
---         end
---     end
--- end)
+RegisterCommand('status+', function(source, args, rawCommand)
+    local _source = source
+    local Player = RedEM.GetPlayer(_source)
+    if Player then
+        if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
+            TriggerClientEvent('kfo_admin:status', Player.source, '+')
+            sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status+', args)
+        else
+            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status+')
+            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end
+end)
 
--- RegisterCommand('status-', function(source, args, rawCommand)
---     local _source = source
---     local Player = RedEM.GetPlayer(_source)
---         if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
---             TriggerClientEvent('kfo_admin:status', _source, '-')
---             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status-', args)
---         else
---             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status-')
---             TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
---         end
---     end)
--- end)
+RegisterCommand('status-', function(source, args, rawCommand)
+    local _source = source
+    local Player = RedEM.GetPlayer(_source)
+    if Player then
+        if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
+            TriggerClientEvent('kfo_admin:status', _source, '-')
+            sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status-', args)
+        else
+            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status-')
+            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+        end
+    end
+end)
 
 RegisterCommand('tpwayp', function(source, args, rawCommand)
     local _source = source
