@@ -36,19 +36,19 @@ end)
 
 
 
-RegisterNetEvent("kfo_admin:tp")
-AddEventHandler("kfo_admin:tp",function(playerID)
-    local charid, identifier = exports.kfo_permissions.getPlayerVariables(playerID)
-    local players = GetActivePlayers()
+-- RegisterNetEvent("kfo_admin:tp")
+-- AddEventHandler("kfo_admin:tp",function(playerID)
+--     local charid, identifier = exports.kfo_permissions.getPlayerVariables(playerID)
+--     local players = GetActivePlayers()
 
-    for k, v in pairs(players) do 
-        TriggerServerEvent('redemrp:getPlayerFromId', function(user)
-            if (charid == user.getSessionVar('charid') and identifier == user.getIdentifier()) then
-                TriggerServerEvent('kfo_adminS:tp', k)
-            end
-        end)
-    end
-end)
+--     for k, v in pairs(players) do 
+--         TriggerServerEvent('redemrp:getPlayerFromId', function(user)
+--             if (charid == user.getSessionVar('charid') and identifier == user.getIdentifier()) then
+--                 TriggerServerEvent('kfo_adminS:tp', k)
+--             end
+--         end)
+--     end
+-- end)
 
 RegisterNetEvent('kfo_admin:outfitPreset')
 AddEventHandler('kfo_admin:outfitPreset', function(outfit)
@@ -60,7 +60,7 @@ AddEventHandler('kfo_admin:status', function(operator)
     if operator == '+' then
         TriggerServerEvent('redemrp_status:AddAmount', 100 , 100)
     else
-        TriggerServerEvent('redemrp_status:AddAmount', -100 , -100)
+        TriggerServerEvent('redemrp_status:AddAmount', 0 , 0)
     end
 end)
 
