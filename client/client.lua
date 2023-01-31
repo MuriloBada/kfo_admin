@@ -1,5 +1,5 @@
 local noclip = false
-
+local avisos = 0
 --____________________________________[EVENTS]___________________________________
 RegisterNetEvent("kfo_admin:spawnped")
 AddEventHandler("kfo_admin:spawnped",function(pedModel, outfit)
@@ -21,34 +21,39 @@ AddEventHandler("kfo_admin:spawnped",function(pedModel, outfit)
     local ped = CreatePed(pedModelHash, x,y,z, GetEntityHeading(PlayerPedId()), 1, 0)
     Citizen.InvokeNative(0x283978A15512B2FE, ped, true)
     Citizen.InvokeNative(0x58A850EAEE20FAA3, ped)
-
+    
     SetEntityAsMissionEntity(ped)
-
+    
     SetPedAsGroupMember(ped, GetDefaultRelationshipGroupHash(pedModelHash))
-
+    
     Citizen.InvokeNative(0xC80A74AC829DDD92, ped, GetDefaultRelationshipGroupHash(pedModelHash))
-
+    
     if outfit ~= nil then
         SetPedOutfitPreset(ped, tonumber(outfit))
         Citizen.InvokeNative(0x7528720101A807A5, ped, 2)
     end
 end)
 
-
-
--- RegisterNetEvent("kfo_admin:tp")
--- AddEventHandler("kfo_admin:tp",function(playerID)
---     local charid, identifier = exports.kfo_permissions.getPlayerVariables(playerID)
---     local players = GetActivePlayers()
-
---     for k, v in pairs(players) do 
---         TriggerServerEvent('redemrp:getPlayerFromId', function(user)
---             if (charid == user.getSessionVar('charid') and identifier == user.getIdentifier()) then
---                 TriggerServerEvent('kfo_adminS:tp', k)
---             end
---         end)
---     end
--- end)
+RegisterNetEvent("kfo_admin:punirPlayer")
+AddEventHandler("kfo_admin:punirPlayer",function()
+    if avisos == 0 then
+        TriggerEvent("redem_roleplay:NotifyLeft", 'Alerta!', 'Comandos com * são de Admin', 'pm_awards_mp', 'awards_set_s_007', 7000)
+    elseif avisos >= 1 and avisos < 3 then
+        TriggerEvent("redem_roleplay:NotifyLeft", 'Temos Logs', 'Ficar forçando uso de comandos de admin pode causar punições, cuidado.', 'pm_awards_mp', 'awards_set_a_007', 7000)
+    elseif avisos >= 3 and avisos <= 5 then
+        TriggerEvent("redem_roleplay:NotifyLeft", 'Eu avisei', 'Ficar forçando uso de comandos de admin pode causar punições, cuidado.', 'pm_awards_mp', 'awards_set_a_008', 7000)
+        TriggerServerEvent('redemrp_status:AddAmount', -20 , -20)
+    elseif avisos > 5 then
+        TriggerEvent("redem_roleplay:NotifyLeft", 'Oops!', 'Parece que seu nariz cresceu permanentemente como punição. NÃO CONTINUE', 'pm_awards_mp', 'awards_set_a_008', 7000)
+        TriggerServerEvent('kfo_admin:aumentarNariz')
+    elseif avisos > 7 then
+        TriggerEvent("redem_roleplay:NotifyLeft", 'Adeus!', 'Cansei de avisar', 'pm_awards_mp', 'awards_set_a_008', 7000)
+        SetEntityCoords(PlayerPedId(), -1668.37, 4599.019, 3596.6)
+        TriggerServerEvent('kfo_admin:notifyPlayersOfAbuse')
+    end
+    avisos = avisos + 1
+    TriggerEvent('redem_roleplay:Tip', 'Você não tem permissão para usar isso, este é seu aviso de n° '..avisos, 5000)
+end)
 
 RegisterNetEvent('kfo_admin:outfitPreset')
 AddEventHandler('kfo_admin:outfitPreset', function(outfit)
@@ -277,39 +282,41 @@ end)
 Citizen.CreateThread(function ()
     Wait(1000)
     TriggerEvent('chat:addSuggestion','/dv', 'Deleta a entidade mais próxima (cuidado ao usar)', {})
+    
+    TriggerEvent('chat:addSuggestion','/nc', 'Ativa o no-clip*', {})
 
-    TriggerEvent('chat:addSuggestion','/setped', 'Seta um ped em alguém.', {
+    TriggerEvent('chat:addSuggestion','/setped', 'Seta um ped em alguém.*', {
         {name = "SteamHex", help = "Steam hex da pessoa"},
         {name = "CharID", help = "CharID do personagem (usar /charusuario)"},
         {name = "Ped", help = "Modelo do Ped a ser setado"},
     })
     
-    TriggerEvent('chat:addSuggestion','/removeped', 'Remove o ped de alguém.', {
+    TriggerEvent('chat:addSuggestion','/removeped', 'Remove o ped de alguém.*', {
         {name = "SteamHex", help = "Steam hex da pessoa"},
         {name = "CharID", help = "CharID do personagem (usar /charusuario)"},
     })
 
-    TriggerEvent('chat:addSuggestion','/outfit', 'Troca a Outfit do ped', {
+    TriggerEvent('chat:addSuggestion','/outfit', 'Troca a Outfit do ped (peds setados)*', {
         {name = "Número", help = "Número do outfit desejado."},
     })
 
-    TriggerEvent('chat:addSuggestion','/god', 'Torna uma entidade invencível', {})
+    TriggerEvent('chat:addSuggestion','/god', 'Torna uma entidade invencível*', {})
     
-    TriggerEvent('chat:addSuggestion','/status+', 'Enche fome e sede', {})
+    TriggerEvent('chat:addSuggestion','/status+', 'Enche fome e sede*', {})
     
-    TriggerEvent('chat:addSuggestion','/status-', 'Esvazia fome e sede', {})
+    TriggerEvent('chat:addSuggestion','/status-', 'Esvazia fome e sede*', {})
     
-    TriggerEvent('chat:addSuggestion','/tpwayp', 'Teleporta para o local marcado em seu mapa', {})
+    TriggerEvent('chat:addSuggestion','/tpwayp', 'Teleporta para o local marcado em seu mapa*', {})
 
-    TriggerEvent('chat:addSuggestion','/veh', 'Spawna um veículo', {
+    TriggerEvent('chat:addSuggestion','/veh', 'Spawna um veículo*', {
         {name = "Veículo", help = "Modelo do veículo (cuidado pra não spawnar trens.)"},
     })
 
-    TriggerEvent('chat:addSuggestion','/ped', 'Se transforma em um Ped', {
+    TriggerEvent('chat:addSuggestion','/ped', 'Se transforma em um Ped*', {
         {name = "Ped", help = "Modelo do ped"},
     })
 
-    TriggerEvent('chat:addSuggestion','/spawnped', 'Spawna um ped', {
+    TriggerEvent('chat:addSuggestion','/spawnped', 'Spawna um ped*', {
         {name = "Ped", help = "Modelo do ped"},
     })
 
@@ -317,7 +324,7 @@ Citizen.CreateThread(function ()
         {name = "SteamHex", help = "Steam hex da pessoa"},
     })
 
-    TriggerEvent('chat:addSuggestion','/tp', 'Teleporta até alguém', {
+    TriggerEvent('chat:addSuggestion','/tp', 'Teleporta até alguém*', {
         {name = "ID", help = "ID da pessoa"},
     })
 end)

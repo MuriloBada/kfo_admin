@@ -13,8 +13,8 @@ RegisterCommand('nc', function(source, args, rawCommand)
             TriggerClientEvent('kfo_admin:nc', Player.source)
             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/nc', args)
         else
-            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/nc')
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/nc', args)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -32,7 +32,7 @@ RegisterCommand('ped', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/ped', args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -51,7 +51,7 @@ RegisterCommand('god', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/god', args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -75,7 +75,7 @@ RegisterCommand('setped', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/setped', args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -98,7 +98,7 @@ RegisterCommand('removeped', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/removeped',args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -135,7 +135,7 @@ RegisterCommand('status+', function(source, args, rawCommand)
             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status+', args)
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status+')
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -149,7 +149,7 @@ RegisterCommand('status-', function(source, args, rawCommand)
             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/status-', args)
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/status-')
-            TriggerClientEvent('redem_roleplay:Tip', _source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -163,7 +163,7 @@ RegisterCommand('tpwayp', function(source, args, rawCommand)
             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/tpwayp', args)
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/tpwayp')
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -182,7 +182,7 @@ RegisterCommand('veh', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/veh',args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -201,7 +201,7 @@ RegisterCommand('spawnped', function(source, args, rawCommand)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/spawnped',args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -215,7 +215,7 @@ RegisterCommand('cavalo', function(source, args, rawCommand)
             sendLogComandoAdminUsado(Player.identifier, Player.charid, '/cavalo', 'A_C_HORSE_MUSTANG_BLACKOVERO')
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/cavalo', 'A_C_HORSE_MUSTANG_BLACKOVERO')
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
     end
 end)
@@ -238,7 +238,35 @@ RegisterCommand('charusuario', function(source, args)
             end
         else
             sendLogComandoAdminTentado(Player.identifier, Player.charid, '/charusuario',args)
-            TriggerClientEvent('redem_roleplay:Tip', Player.source, "Você não tem permissão para acessar este comando.", 7000)
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
         end
+    end
+end)
+
+RegisterNetEvent('kfo_admin:aumentarNariz')
+AddEventHandler('kfo_admin:aumentarNariz', function()
+    local Player = RedEM.GetPlayer(source)
+    if Player then
+        local skin = MySQL.Sync.fetchAll('SELECT * FROM SKINS WHERE identifier = @identifier and charid = @charid', {identifier = Player.identifier, charid = Player.charid})
+        local s_skin = json.decode(skin[1].skin)
+
+        s_skin.nostrils_distance = 100
+        s_skin.nose_curvature = 100
+        s_skin.nose_angle = -100
+        s_skin.nose_height = 100
+        s_skin.nose_size = 100
+        s_skin.nose_width = 100
+        MySQL.Async.fetchAll('update skins set skin = @skin where identifier = @identifier and charid = @charid', {skin = json.encode(s_skin), identifier = Player.identifier, charid = Player.charid})
+        TriggerClientEvent('RedEM:client:ApplySkin', Player.source, s_skin)
+    end
+end)
+
+RegisterNetEvent('kfo_admin:notifyPlayersOfAbuse')
+AddEventHandler('kfo_admin:notifyPlayersOfAbuse', function()
+    local Abuser = RedEM.GetPlayer(source)
+    local players = GetPlayers()
+
+    for k, v in pairs(players) do
+        TriggerClientEvent("redem_roleplay:NotifyLeft", k, Abuser.firstname..' '..Abuser.lastname, 'Punido por tentar abusar de comandos de Admin, considerem isso um aviso.', 'pm_awards_mp', 'awards_set_s_007', 4000)
     end
 end)
