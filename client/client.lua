@@ -43,7 +43,7 @@ AddEventHandler("kfo_admin:punirPlayer",function()
     elseif avisos >= 3 and avisos <= 5 then
         TriggerEvent("redem_roleplay:NotifyLeft", 'Eu avisei', 'Ficar forçando uso de comandos de admin pode causar punições, cuidado.', 'pm_awards_mp', 'awards_set_a_008', 7000)
         TriggerServerEvent('redemrp_status:AddAmount', -20 , -20)
-    elseif avisos > 5 then
+    elseif avisos > 5 and avisos <= 7 then
         TriggerEvent("redem_roleplay:NotifyLeft", 'Oops!', 'Parece que seu nariz cresceu permanentemente como punição. NÃO CONTINUE', 'pm_awards_mp', 'awards_set_a_008', 7000)
         TriggerServerEvent('kfo_admin:aumentarNariz')
     elseif avisos > 7 then
