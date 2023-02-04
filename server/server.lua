@@ -168,6 +168,20 @@ RegisterCommand('tpwayp', function(source, args, rawCommand)
     end
 end)
 
+RegisterCommand('tpcds', function(source, args, rawCommand)
+    local _source = source
+    local Player = RedEM.GetPlayer(_source)
+    if Player then
+        if exports.kfo_permissions.checkPlayerJob(Player.source, 'Admin', Player.identifier, Player.charid) then
+            SetEntityCoords(_source,tonumber(args[1]),tonumber(args[2]),tonumber(args[3]),false,false,false,false)
+            sendLogComandoAdminUsado(Player.identifier, Player.charid, '/tpcds', args)
+        else
+            sendLogComandoAdminTentado(Player.identifier, Player.charid, '/tpcds')
+            TriggerClientEvent('kfo_admin:punirPlayer', Player.source)
+        end
+    end
+end)
+
 RegisterCommand('veh', function(source, args, rawCommand)
     local _source = source
     local Player = RedEM.GetPlayer(_source)
