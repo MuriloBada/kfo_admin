@@ -42,7 +42,7 @@ AddEventHandler("kfo_admin:punirPlayer",function()
         TriggerEvent("redem_roleplay:NotifyLeft", 'Temos Logs', 'Ficar forçando uso de comandos de admin pode causar punições, cuidado.', 'pm_awards_mp', 'awards_set_a_007', 7000)
     elseif avisos >= 3 and avisos <= 5 then
         TriggerEvent("redem_roleplay:NotifyLeft", 'Eu avisei', 'Ficar forçando uso de comandos de admin pode causar punições, cuidado.', 'pm_awards_mp', 'awards_set_a_008', 7000)
-        TriggerServerEvent('redemrp_status:AddAmount', -20 , -20)
+        -- TriggerServerEvent('redemrp_status:AddAmount', -20 , -20)
     elseif avisos > 5 and avisos <= 7 then
         TriggerEvent("redem_roleplay:NotifyLeft", 'Oops!', 'Parece que seu nariz cresceu permanentemente como punição. NÃO CONTINUE', 'pm_awards_mp', 'awards_set_a_008', 7000)
         TriggerServerEvent('kfo_admin:aumentarNariz')
@@ -63,9 +63,9 @@ end)
 RegisterNetEvent('kfo_admin:status')
 AddEventHandler('kfo_admin:status', function(operator)
     if operator == '+' then
-        TriggerServerEvent('redemrp_status:AddAmount', 100 , 100)
+        exports['nxt_studio_hud']:setStatus(0,0)        
     else
-        TriggerServerEvent('redemrp_status:AddAmount', 0 , 0)
+        exports['nxt_studio_hud']:setStatus(100,100)
     end
 end)
 
@@ -228,11 +228,11 @@ local god = false
 RegisterNetEvent('kfo_admin:god')
 AddEventHandler('kfo_admin:god', function()
     god = not god
-    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 0, 100)
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 0, 200)
 
-    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 1, 100)
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 1, 200)
 
-    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 2, 100)
+    Citizen.InvokeNative(0xC6258F41D86676E0, PlayerPedId(), 2, 200)
     if god then
         TriggerEvent('redem_roleplay:Tip', "God Ativado", 7000)
         Citizen.InvokeNative(0x4AF5A4C7B9157D14, PlayerPedId(), 0, 1000, true)
