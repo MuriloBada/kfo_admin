@@ -63,9 +63,11 @@ end)
 RegisterNetEvent('kfo_admin:status')
 AddEventHandler('kfo_admin:status', function(operator)
     if operator == '+' then
-        exports['nxt_studio_hud']:setStatus(0,0)        
+        exports['nxt_studio_hud']:setStatus(0,0)   
+        TriggerEvent("HUD:decreaseStress", source, 100)
     else
         exports['nxt_studio_hud']:setStatus(100,100)
+        -- TriggerEvent("HUD:increaseStress", source, 100)     
     end
 end)
 
