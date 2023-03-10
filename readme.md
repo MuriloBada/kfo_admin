@@ -1,6 +1,4 @@
-# KFO_ADMIN
-
-## Admin Permissions for REDEM:RP 2023
+# KFO_ADMIN - Admin Permissions for REDEM:RP 2023
 
 ## 1. Requirements 
 
