@@ -6,5 +6,5 @@
 
 ## 2. Installation
 
-- 1° step - Clone this repository into your resources folder
-- 2° step - Add ```ensure kfo_admin``` in server.cfg **After** ```KFO_PERMISSIONS```
+- 1° step - Clone this repository into your resource folder
+- 2° step - Add ```ensure kfo_admin``` in server.cfg
