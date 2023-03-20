@@ -66,7 +66,7 @@ AddEventHandler('kfo_admin:status', function(operator)
         exports['nxt_studio_hud']:setStatus(0,0)   
         TriggerEvent("HUD:decreaseStress", source, 100)
     else
-        exports['nxt_studio_hud']:setStatus(100,100)
+        exports['nxt_studio_hud']:setStatus(90,90)
         -- TriggerEvent("HUD:increaseStress", source, 100)     
     end
 end)
